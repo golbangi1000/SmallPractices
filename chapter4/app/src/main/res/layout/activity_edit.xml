@@ -45,12 +45,24 @@
         style="@style/Value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:text="0000-00-00"
         android:gravity="end"
-        android:hint="0000-00-00"
+        android:paddingEnd="8dp"
         app:layout_constraintBaseline_toBaselineOf="@id/birthDateTextView"
-        app:layout_constraintEnd_toEndOf="@id/nameEditText"
+        app:layout_constraintEnd_toStartOf="@id/birthdateImageView"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
+    <ImageView
+        android:id="@+id/birthdateImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintEnd_toEndOf="@id/nameEditText"
+        app:layout_constraintTop_toTopOf="@id/birthDateTextView"
+        app:layout_constraintBottom_toBottomOf="@id/birthDateTextView"
+        android:src="@drawable/baseline_edit_calendar_24"
+
+    />
     <TextView
         android:id="@+id/bloodTypeTextView"
         style="@style/Title"
@@ -60,16 +72,45 @@
         app:layout_constraintStart_toStartOf="@id/birthDateTextView"
         app:layout_constraintTop_toBottomOf="@id/birthDateTextView" />
 
-    <TextView
-        android:id="@+id/bloodTypeValueTextView"
-        style="@style/Value"
+    <RadioGroup
+        android:id="@+id/bloodTypeRadioGroup"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
         android:gravity="end"
-        android:text="A"
-        app:layout_constraintBaseline_toBaselineOf="@id/bloodTypeTextView"
-        app:layout_constraintEnd_toEndOf="@id/birthDateValueTextView"
-        app:layout_constraintStart_toStartOf="@+id/guideline2" />
+        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toTopOf="@id/bloodTypeTextView"
+        app:layout_constraintEnd_toEndOf="@id/nameEditText"
+        app:layout_constraintBottom_toBottomOf="@id/bloodTypeTextView">
+
+        <RadioButton
+            android:id="@+id/bloodTypePlus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rh+"
+            />
+        <RadioButton
+            android:id="@+id/bloodTypeMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rh-"
+            />
+
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/bloodTypeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/nameEditText"
+        app:layout_constraintTop_toTopOf="@id/bloodTypeTextView"
+        app:layout_constraintBaseline_toBottomOf="@id/bloodTypeTextView"
+        />
+
+
+
+
+
 
     <TextView
         android:id="@+id/emergencyTextView"
@@ -102,13 +143,12 @@
         app:layout_constraintTop_toBottomOf="@id/emergencyTextView" />
 
     <EditText
-        android:id="@+id/cautionValueTextView"
+        android:id="@+id/warningEditTextView"
         style="@style/Value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="end"
         android:hint="주의사항"
-        
         app:layout_constraintBaseline_toBaselineOf="@id/cautionTextView"
         app:layout_constraintEnd_toEndOf="@id/nameEditText"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
