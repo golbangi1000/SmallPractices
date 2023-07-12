@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.view.isInvisible
 import com.example.chapter4.databinding.ActivityMainBinding
 
@@ -18,13 +19,17 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, EditActivity::class.java)
             startActivity(intent)
         }
-        getDataUiUpdate()
 
-
-
+        binding.deleteButton.setOnClickListener {
+            deleteData()
+        }
 
     }
-
+    //다른 액티비티 갔다가 돌아올때는 oncreate이 아니라 onresume이 불려짐
+    override fun onResume() {
+        super.onResume()
+        getDataUiUpdate()
+    }
     private fun getDataUiUpdate(){
         with(getSharedPreferences(USER_INFORMATION, Context.MODE_PRIVATE)){
             binding.nameValueTextView.text = getString(NAME,"미정")
@@ -39,6 +44,15 @@ class MainActivity : AppCompatActivity() {
                 binding.cautionValueTextView.text = warning
             }
         }
+    }
+
+    private fun deleteData(){
+        with(getSharedPreferences(USER_INFORMATION, MODE_PRIVATE).edit()){
+            clear()
+            apply()
+            getDataUiUpdate()
+        }
+        Toast.makeText(this, "초기화를 완료했습니다.", Toast.LENGTH_SHORT).show()
     }
 
 }
