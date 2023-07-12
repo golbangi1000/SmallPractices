@@ -14,8 +14,7 @@
         android:layout_marginStart="36dp"
         android:text="이름"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/nameValueTextView"
@@ -85,10 +84,11 @@
         style="@style/Value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:gravity="end"
         android:text="0000-0000-0000"
         app:layout_constraintBaseline_toBaselineOf="@id/emergencyTextView"
-        app:layout_constraintEnd_toEndOf="@id/bloodTypeValueTextView"
+        app:layout_constraintEnd_toStartOf="@id/imageView"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     <TextView
@@ -99,6 +99,19 @@
         android:text="주의사항"
         app:layout_constraintStart_toStartOf="@id/emergencyTextView"
         app:layout_constraintTop_toBottomOf="@id/emergencyTextView" />
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_local_phone_24"
+        app:layout_constraintBottom_toBottomOf="@id/emergencyValueTextView"
+        app:layout_constraintEnd_toEndOf="@id/nameValueTextView"
+        app:layout_constraintTop_toTopOf="@id/emergencyValueTextView"
+
+        />
+
 
     <TextView
         android:id="@+id/cautionValueTextView"
@@ -123,23 +136,28 @@
         android:id="@+id/goInputActivityButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_margin="36dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/baseline_edit_24"
-        />
+        app:srcCompat="@drawable/baseline_edit_24" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_margin="36dp"
+        android:clickable="true"
         app:layout_constraintBottom_toTopOf="@id/goInputActivityButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/baseline_delete_24"
-        />
+        app:srcCompat="@drawable/baseline_delete_24" />
+
+    <androidx.constraintlayout.helper.widget.Layer
+        android:id="@+id/emergencyContactLayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="emergencyValueTextView,imageView"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
