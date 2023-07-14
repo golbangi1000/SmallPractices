@@ -15,6 +15,7 @@
         android:padding="16dp"
         android:text="equation"
         android:textSize="30sp"
+        android:textColor="@color/defaultTextColor"
         app:layout_constraintBottom_toTopOf="@id/resultTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +29,7 @@
         android:padding="16dp"
         android:text="result"
         android:textSize="30sp"
+        android:textColor="@color/defaultTextColor"
         app:layout_constraintBottom_toTopOf="@id/keyPadFlow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -86,6 +88,7 @@
     <Button
         android:id="@+id/button6"
         style="@style/numberKeyPad"
+        android:onClick="numberClicked"
         android:text="6" />
 
     <Button
@@ -106,13 +109,13 @@
         android:id="@+id/button9"
         style="@style/numberKeyPad"
         android:onClick="numberClicked"
-
         android:text="9" />
 
     <Button
         android:id="@+id/button0"
         style="@style/numberKeyPad"
         android:text="0"
+        android:onClick="numberClicked"
         app:layout_constraintHorizontal_weight="1"
         tools:ignore="MissingConstraints" />
 
@@ -120,7 +123,7 @@
         android:id="@+id/buttonEqual"
         style="@style/operatorKeyPad"
         android:text="="
-        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintHorizontal_weight="3"
         android:onClick="equalClicked"
         tools:ignore="MissingConstraints" />
 
@@ -128,7 +131,7 @@
         android:id="@+id/buttonClear"
         style="@style/operatorKeyPad"
         android:text="C"
-        android:onClick="operatorClicked"
+        android:onClick="clearClicked"
         tools:ignore="MissingConstraints" />
 
     <Button
