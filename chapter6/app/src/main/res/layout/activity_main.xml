@@ -22,23 +22,21 @@
         android:id="@+id/countdownTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="countdown"
         android:layout_marginEnd="24dp"
-        app:layout_constraintTop_toTopOf="@id/countdownTextView"
+        android:text="countdown"
         app:layout_constraintBottom_toBottomOf="@id/countdownTextView"
         app:layout_constraintEnd_toStartOf="@id/countdownTextView"
-        />
+        app:layout_constraintTop_toTopOf="@id/countdownTextView" />
 
     <TextView
         android:id="@+id/countdownUnitTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="초"
         app:layout_constraintBaseline_toBaselineOf="@id/countdownTextView"
-        app:layout_constraintStart_toEndOf="@id/countdownTextView"
-        android:layout_marginStart="8dp"
-        />
-    
+        app:layout_constraintStart_toEndOf="@id/countdownTextView" />
+
     <TextView
         android:id="@+id/countdownTextView"
         android:layout_width="wrap_content"
@@ -138,26 +136,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
         app:srcCompat="@drawable/baseline_check_24" />
-    
-    
+
+
     <ScrollView
         android:id="@+id/lapScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline2"
         android:layout_marginTop="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:padding="16dp"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline2">
+
         <LinearLayout
             android:id="@+id/lapContainer"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
     </ScrollView>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/countdownGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="countdownTitleTextView,countdownTextView,countdownUnitTextView,countdownProgressBar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
