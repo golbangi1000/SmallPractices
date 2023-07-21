@@ -150,7 +150,7 @@
         app:layout_constraintTop_toTopOf="@id/guideline2">
 
         <LinearLayout
-            android:id="@+id/lapContainer"
+            android:id="@+id/lapContainerLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

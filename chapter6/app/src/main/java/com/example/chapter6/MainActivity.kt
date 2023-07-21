@@ -1,6 +1,8 @@
 package com.example.chapter6
 
 import android.app.AlertDialog
+import android.media.AudioManager
+import android.media.ToneGenerator
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.TextView
@@ -88,10 +90,14 @@ class MainActivity : AppCompatActivity() {
                     binding.countdownTextView.text = String.format("%02d", seconds)
                     binding.countdownProgressBar.progress = progress.toInt()
                 }
-
-
             }
 
+            if(currentDeciSecond == 0 && currentCountDownDeciSecond < 31 && currentCountDownDeciSecond % 10 == 0){
+                val ToneType = if(currentCountDownDeciSecond == 0 )ToneGenerator.TONE_CDMA_HIGH_L else ToneGenerator.TONE_CDMA_ANSWER
+                ToneGenerator(AudioManager.STREAM_ALARM, ToneGenerator.MAX_VOLUME)
+                    .startTone(ToneType, 100)
+
+            }
         }
     }
 
@@ -113,11 +119,14 @@ class MainActivity : AppCompatActivity() {
         binding.tickTextView.text = "0"
         binding.countdownGroup.isVisible = true
         initCountDownViews()
+
+        binding.lapContainerLinearLayout.removeAllViews()
     }
 
 
     private fun lap() {
-        val container = binding.lapContainer
+        if(currentDeciSecond== 0 ) return
+        val container = binding.lapContainerLinearLayout
         TextView(this).apply {
             textSize = 20f
             gravity = Gravity.CENTER
