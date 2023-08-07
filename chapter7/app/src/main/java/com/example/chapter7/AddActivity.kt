@@ -47,7 +47,7 @@ class AddActivity : AppCompatActivity() {
     private fun add(){
         val text = binding.textInputEditText.text.toString()
         val mean = binding.meanTextInputEditText.text.toString()
-        val type = binding.typeChipGroup.checkedChipId.toString()
+        val type = findViewById<Chip>(binding.typeChipGroup.checkedChipId).text.toString()
         val word = Word(text,mean, type)
         Thread{
             AppDataBase.getInstance(this)?.wordDao()?.insert(word)
