@@ -1,3 +1,9 @@
+buildscript {
+    dependencies {
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0'
+    }
+}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -32,14 +38,14 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = '17'
     }
     buildFeatures{
         viewBinding = true
     }
 
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain 17
     }
 }
 
@@ -57,7 +63,7 @@ dependencies {
 
 
 
-    implementation 'com.google.devtools.ksp:symbol-processing-api:1.9.0-1.0.13'
+    implementation 'com.google.devtools.ksp:symbol-processing-api:1.9.0-1.0.11'
 
     implementation "androidx.room:room-runtime:2.5.2"
     annotationProcessor "androidx.room:room-compiler:2.5.2"
