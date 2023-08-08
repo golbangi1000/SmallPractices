@@ -2,6 +2,7 @@ package com.example.chapter7
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.room.RoomDatabase
 import com.example.chapter7.databinding.ActivityAddBinding
@@ -49,6 +50,7 @@ class AddActivity : AppCompatActivity() {
         val mean = binding.meanTextInputEditText.text.toString()
         val type = findViewById<Chip>(binding.typeChipGroup.checkedChipId).text.toString()
         val word = Word(text,mean, type)
+        Log.d("adf","boomboom")
         Thread{
             AppDataBase.getInstance(this)?.wordDao()?.insert(word)
             runOnUiThread {
