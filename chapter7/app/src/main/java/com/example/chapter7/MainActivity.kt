@@ -37,6 +37,25 @@ class MainActivity : AppCompatActivity(),WordAdapter.ItemClickListener {
             val dividerItemDecoration  = DividerItemDecoration(applicationContext, LinearLayoutManager.VERTICAL)
             addItemDecoration(dividerItemDecoration)
         }
+
+
+
+        Thread{
+            //database를 call 하는거니깐 Thread에 넣어서 사용
+            val list =AppDataBase.getInstance(this)?.wordDao()?.getAll() ?: emptyList()
+
+            wordAdapter.list.addAll(list)
+            runOnUiThread {
+                //시간이 좀 지나도 dataset바뀐걸 알수있게 밑에있는 줄을 넣음
+                //부하가 많이 걸림 
+                wordAdapter.notifyDataSetChanged()
+            }
+
+
+        }.start()
+
+
+
     }
     override fun onclick(word: Word) {
         Toast.makeText(this, "${word.text} 가 클릭됨", Toast.LENGTH_SHORT).show()
