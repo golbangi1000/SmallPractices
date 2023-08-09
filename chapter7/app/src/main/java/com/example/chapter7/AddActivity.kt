@@ -10,6 +10,7 @@ import com.google.android.material.chip.Chip
 
 class AddActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
@@ -56,6 +57,7 @@ class AddActivity : AppCompatActivity() {
             runOnUiThread {
                 Toast.makeText(this,"저장을 완료했습니다",Toast.LENGTH_SHORT).show()
             }
+            setResult()
             finish()
         }.start()
     }
