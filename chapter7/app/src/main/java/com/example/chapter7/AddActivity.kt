@@ -1,5 +1,6 @@
 package com.example.chapter7
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -51,13 +52,16 @@ class AddActivity : AppCompatActivity() {
         val mean = binding.meanTextInputEditText.text.toString()
         val type = findViewById<Chip>(binding.typeChipGroup.checkedChipId).text.toString()
         val word = Word(text,mean, type)
-        Log.d("adf","boomboom")
+//        Log.d("adf","boomboom")
         Thread{
             AppDataBase.getInstance(this)?.wordDao()?.insert(word)
             runOnUiThread {
                 Toast.makeText(this,"저장을 완료했습니다",Toast.LENGTH_SHORT).show()
             }
-            setResult()
+            val intent = Intent().putExtra("isUpdated", true)
+            setResult(RESULT_OK,intent )
+
+            intent.putExtra("isUpdated",true)
             finish()
         }.start()
     }
