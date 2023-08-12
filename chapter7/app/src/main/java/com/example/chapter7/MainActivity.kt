@@ -30,11 +30,13 @@ class MainActivity : AppCompatActivity(),WordAdapter.ItemClickListener {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private val updateEditWordResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){result ->
-        val editWord = result.data?.getParcelableExtra<Word>("editWord") ?: false
+        // getParcelableExtra is deprecated so gotta put type in
+        val editWord = result.data?.getParcelableExtra<Word>("editWord", Word::class.java)
         if(result.resultCode == RESULT_OK && editWord != null){
             updateEditWord(editWord)
         }
     }
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -50,6 +52,10 @@ class MainActivity : AppCompatActivity(),WordAdapter.ItemClickListener {
 
         binding.deleteImageView.setOnClickListener {
             delete()
+        }
+
+        binding.editImageView.setOnClickListener {
+            edit()
         }
 
     }
@@ -98,6 +104,11 @@ class MainActivity : AppCompatActivity(),WordAdapter.ItemClickListener {
     }
 
     private fun updateEditWord(word :Word){
+        val index = wordAdapter.list.indexOfFirst { it.id == word.id }
+        wordAdapter.list[index] = word
+        runOnUiThread {
+            wordAdapter.notifyItemChanged(index)
+        }
 
     }
 
@@ -120,6 +131,16 @@ class MainActivity : AppCompatActivity(),WordAdapter.ItemClickListener {
                 }
             }
         }.start()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun edit(){
+        if(selectedWord == null){
+            return
+        }
+
+        val intent = Intent(this, AddActivity::class.java).putExtra("originData", selectedWord)
+        updateEditWordResult.launch(intent)
     }
 
     override fun onclick(word: Word) {
