@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.children
+import androidx.core.widget.addTextChangedListener
 import androidx.room.RoomDatabase
 import com.example.chapter7.databinding.ActivityAddBinding
 import com.google.android.material.chip.Chip
@@ -25,7 +26,11 @@ class AddActivity : AppCompatActivity() {
         initViews()
 
         binding.addButton.setOnClickListener {
-            add()
+            if(originWord == null){
+                add()
+            } else {
+                edit()
+            }
         }
 
     }
@@ -41,7 +46,17 @@ class AddActivity : AppCompatActivity() {
                 addView(createChip(text))
             }
         }
+        binding.textInputEditText.addTextChangedListener {
+            it?.let{ text->
+                binding.textTextInputLayout.error = when(text.length) {
+                    0 -> "값을 입력해주세요"
+                    1 -> "2자 이상을 입력해주세요"
+                    else -> null
+                }
 
+            }
+
+        }
 
         originWord = intent.getParcelableExtra("originWord", Word::class.java)
         originWord?.let {word ->
@@ -80,5 +95,26 @@ class AddActivity : AppCompatActivity() {
             intent.putExtra("isUpdated",true)
             finish()
         }.start()
+    }
+
+    private fun edit(){
+        val text = binding.textInputEditText.text.toString()
+        val mean = binding.meanTextInputEditText.text.toString()
+        val type = findViewById<Chip>(binding.typeChipGroup.checkedChipId).text.toString()
+        val editWord = originWord?.copy(text = text , mean = mean, type = type)
+
+        Thread{
+            editWord?.let {word->
+                AppDataBase.getInstance(this)?.wordDao()?.update(word)
+                val intent = Intent().putExtra("editWord", editWord)
+                setResult(RESULT_OK,intent)
+                runOnUiThread {
+                    Toast.makeText(this, "수정을 완료했습니다", Toast.LENGTH_SHORT).show()
+                }
+                finish()
+            }
+
+        }.start()
+
     }
 }

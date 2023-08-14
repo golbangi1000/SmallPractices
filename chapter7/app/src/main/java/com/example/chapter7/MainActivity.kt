@@ -107,7 +107,11 @@ class MainActivity : AppCompatActivity(),WordAdapter.ItemClickListener {
         val index = wordAdapter.list.indexOfFirst { it.id == word.id }
         wordAdapter.list[index] = word
         runOnUiThread {
+            selectedWord = word
             wordAdapter.notifyItemChanged(index)
+            binding.textTextView.text = word.text
+            binding.meanTextView.text = word.mean
+
         }
 
     }
@@ -139,7 +143,7 @@ class MainActivity : AppCompatActivity(),WordAdapter.ItemClickListener {
             return
         }
 
-        val intent = Intent(this, AddActivity::class.java).putExtra("originData", selectedWord)
+        val intent = Intent(this, AddActivity::class.java).putExtra("originWord", selectedWord)
         updateEditWordResult.launch(intent)
     }
 
