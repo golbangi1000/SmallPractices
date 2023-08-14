@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -46,18 +48,20 @@ class AddActivity : AppCompatActivity() {
                 addView(createChip(text))
             }
         }
-        binding.textInputEditText.addTextChangedListener {
-            it?.let{ text->
-                binding.textTextInputLayout.error = when(text.length) {
-                    0 -> "값을 입력해주세요"
-                    1 -> "2자 이상을 입력해주세요"
-                    else -> null
-                }
+//        binding.textInputEditText.addTextChangedListener() {
+//            it?.let{ text->
+//                binding.textTextInputLayout.error = when(text.length) {
+//                    0 -> "값을 입력해주세요"
+//                    1 -> "2자 이상을 입력해주세요"
+//                    else -> null
+//                }
+//            }
+//        }
+        textLayoutCountError()
 
-            }
 
-        }
 
+        // 단어 edit 할떄 필요한것들
         originWord = intent.getParcelableExtra("originWord", Word::class.java)
         originWord?.let {word ->
             binding.textInputEditText.setText(word.text)
@@ -115,6 +119,33 @@ class AddActivity : AppCompatActivity() {
             }
 
         }.start()
+
+    }
+
+    private fun textLayoutCountError(){
+        binding.textInputEditText.addTextChangedListener(object : TextWatcher{
+            var wordLength :Int? = 0
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                wordLength = count
+                if(wordLength == 0 || wordLength == 1){
+                    binding.addButton.isClickable = false
+                    binding.addButton.isEnabled = false
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                binding.textTextInputLayout.error = when(s?.length){
+                    0 -> "값을 입력해주세요"
+                    1 -> "2자 이상을 입력해주세요"
+                    else -> null
+                }
+
+            }
+        })
+
 
     }
 }
