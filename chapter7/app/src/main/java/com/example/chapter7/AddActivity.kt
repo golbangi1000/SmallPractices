@@ -15,7 +15,7 @@ import androidx.room.RoomDatabase
 import com.example.chapter7.databinding.ActivityAddBinding
 import com.google.android.material.chip.Chip
 
-class AddActivity : AppCompatActivity() {
+class AddActivity : AppCompatActivity()  {
     private lateinit var binding : ActivityAddBinding
     private var originWord : Word? = null
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -37,6 +37,8 @@ class AddActivity : AppCompatActivity() {
 
     }
 
+
+
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun initViews(){
         val types = listOf(
@@ -48,15 +50,7 @@ class AddActivity : AppCompatActivity() {
                 addView(createChip(text))
             }
         }
-//        binding.textInputEditText.addTextChangedListener() {
-//            it?.let{ text->
-//                binding.textTextInputLayout.error = when(text.length) {
-//                    0 -> "값을 입력해주세요"
-//                    1 -> "2자 이상을 입력해주세요"
-//                    else -> null
-//                }
-//            }
-//        }
+
         textLayoutCountError()
 
 
@@ -123,25 +117,34 @@ class AddActivity : AppCompatActivity() {
     }
 
     private fun textLayoutCountError(){
+        binding.addButton.isEnabled = false
+        binding.addButton.isClickable = false
         binding.textInputEditText.addTextChangedListener(object : TextWatcher{
-            var wordLength :Int? = 0
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                wordLength = count
-                if(wordLength == 0 || wordLength == 1){
+                if(s?.length == 0 || s?.length == 1 || s?.isEmpty() == true){
                     binding.addButton.isClickable = false
                     binding.addButton.isEnabled = false
-                }
-            }
 
-            override fun afterTextChanged(s: Editable?) {
+                } else{
+                    binding.addButton.isClickable = true
+                    binding.addButton.isEnabled = true
+                }
                 binding.textTextInputLayout.error = when(s?.length){
                     0 -> "값을 입력해주세요"
                     1 -> "2자 이상을 입력해주세요"
                     else -> null
                 }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+//                binding.textTextInputLayout.error = when(s?.length){
+//                    0 -> "값을 입력해주세요"
+//                    1 -> "2자 이상을 입력해주세요"
+//                    else -> null
+//                }
 
             }
         })

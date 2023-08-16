@@ -73,12 +73,9 @@ class MainActivity : AppCompatActivity(),WordAdapter.ItemClickListener {
             addItemDecoration(dividerItemDecoration)
         }
 
-
-
         Thread{
             //database를 call 하는거니깐 Thread에 넣어서 사용
             val list =AppDataBase.getInstance(this)?.wordDao()?.getAll() ?: emptyList()
-
             wordAdapter.list.addAll(list)
             runOnUiThread {
                 //시간이 좀 지나도 dataset바뀐걸 알수있게 밑에있는 줄을 넣음
@@ -96,7 +93,6 @@ class MainActivity : AppCompatActivity(),WordAdapter.ItemClickListener {
             AppDataBase.getInstance(this)?.wordDao()?.getLatestWord()?.let { word ->
                 wordAdapter.list.add(0,word)
                 runOnUiThread {
-
                     wordAdapter.notifyDataSetChanged()
                 }
             }

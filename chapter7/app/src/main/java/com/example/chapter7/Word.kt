@@ -14,3 +14,12 @@ data class Word(
     val type : String ,
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
 ) : Parcelable
+
+
+//@Entity(tableName = "Boom")
+//data class Boom(
+//    val boom : String,
+//    val boom1 : String,
+//    val boom2 : String,
+//    @PrimaryKey(autoGenerate = true) val boombaweafawefa: Int = 0,
+//)
