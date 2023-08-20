@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         updateImages(uriList)
     }
     private lateinit var binding: ActivityMainBinding
+    private lateinit var imageAdapter: ImageAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -27,6 +28,20 @@ class MainActivity : AppCompatActivity() {
 
         binding.loadImageButton.setOnClickListener {
             checkPermission()
+        }
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView(){
+        imageAdapter = ImageAdapter(object : ImageAdapter.ItemClickListener {
+            override fun onLoadMoreClick() {
+                checkPermission()
+            }
+        })
+
+        binding.imageRecyclerView.apply {
+            adapter = imageAdapter
+            
         }
     }
 
