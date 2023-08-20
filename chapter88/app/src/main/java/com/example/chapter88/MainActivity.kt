@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PackageManagerCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.chapter88.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.imageRecyclerView.apply {
             adapter = imageAdapter
+            layoutManager = GridLayoutManager(context, 2)
             
         }
     }
@@ -90,7 +92,12 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun updateImages(uriList: List<Uri>){
-
+        val images = uriList.map {
+            ImageItems.Image(it)
+        }
+                                                    //apply는 모른 명령 수행후 새로운 인스턴스를 반환하니깐 return값이 toMutableList()
+        val updatedImages = imageAdapter.currentList.toMutableList().apply { addAll(images) }
+        imageAdapter.submitList(updatedImages)
     }
 
     override fun onRequestPermissionsResult(
