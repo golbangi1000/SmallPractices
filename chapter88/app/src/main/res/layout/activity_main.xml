@@ -31,6 +31,7 @@
         />
 
     <Button
+        android:id="@+id/navigateFrameActivityButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="나만의 앨범 만들기"
